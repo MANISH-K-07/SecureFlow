@@ -1,0 +1,11 @@
+{
+  "dangerous_methods": [
+    "exec",
+    "eval"
+  ],
+  "sanitizer_methods": [
+    "sanitize",
+    "clean",
+    "escape"
+  ]
+}
