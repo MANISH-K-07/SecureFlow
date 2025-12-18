@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SecureFlow – Known Limitations</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #0d6efd;
+            color: white;
+            padding: 1.8rem;
+            text-align: center;
+        }
+        main {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 1.5rem;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        h1{
+            color: #f7f8fa;
+        }
+        h2 {
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        ul {
+            margin-left: 1.2rem;
+        }
+        a {
+            color: #0d6efd;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            text-align: center;
+            margin: 2rem 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Known Limitations</h1>
+    <p>SecureFlow – Analysis Scope & Constraints</p>
+</header>
+
+<main>
+
+<h2>Intentional Scope</h2>
+<p>
+SecureFlow is intentionally scoped as a <strong>research and educational prototype</strong>.
+It focuses on demonstrating fundamental taint analysis techniques rather than
+providing full production-grade coverage.
+</p>
+
+<h2>Analysis Limitations</h2>
+<ul>
+    <li>No interprocedural taint propagation across method boundaries</li>
+    <li>No context-sensitive or path-sensitive analysis</li>
+    <li>Limited handling of collections, arrays, and complex expressions</li>
+    <li>No modeling of reflection or dynamic dispatch</li>
+    <li>Single-file analysis focus</li>
+</ul>
+
+<h2>Precision Trade-offs</h2>
+<p>
+SecureFlow uses conservative taint propagation rules.
+This may result in false positives, a common and accepted trade-off in static
+security analysis.
+</p>
+
+<h2>Performance Considerations</h2>
+<p>
+The analysis prioritizes clarity over aggressive optimization.
+As a result, it is not intended for large-scale enterprise codebases.
+</p>
+
+<h2>Non-Goals</h2>
+<ul>
+    <li>Production-grade vulnerability detection</li>
+    <li>Complete Java language coverage</li>
+    <li>Automated vulnerability remediation</li>
+</ul>
+
+<h2>Research Context</h2>
+<p>
+Explicitly documenting limitations is a deliberate design choice.
+It reflects common academic practice and clarifies the boundary between
+demonstrated techniques and future research work.
+</p>
+
+<p>
+<a href="index.html">← Back to SecureFlow Home</a>
+</p>
+
+</main>
+
+<footer>
+    © 2025 SecureFlow • Limitations Documentation
+</footer>
+
+</body>
+</html>

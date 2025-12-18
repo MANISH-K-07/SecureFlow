@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SecureFlow – Design & Architecture</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #0d6efd;
+            color: white;
+            padding: 1.8rem;
+            text-align: center;
+        }
+        main {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 1.5rem;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        h1{
+            color: #f7f8fa;
+        }
+        h2 {
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        pre {
+            background-color: #f1f1f1;
+            padding: 0.75rem;
+            border-radius: 6px;
+        }
+        a {
+            color: #0d6efd;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            text-align: center;
+            margin: 2rem 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Design & Architecture</h1>
+    <p>SecureFlow – Static Taint Analysis Tool for Java</p>
+</header>
+
+<main>
+
+<h2>Overview</h2>
+<p>
+SecureFlow is a lightweight, research-oriented static analysis tool designed to
+demonstrate core taint tracking concepts used in software security research.
+The design prioritizes clarity, modularity, and extensibility over completeness.
+</p>
+
+<h2>High-Level Architecture</h2>
+<pre>
+Java Source File
+       ↓
+JavaParser (AST Generation)
+       ↓
+TaintAnalyzer (AST Visitor)
+       ↓
+Issue Collection
+       ↓
+Report Generation
+</pre>
+
+<h2>Core Components</h2>
+
+<h3>AST Parsing</h3>
+<p>
+SecureFlow uses <strong>JavaParser</strong> to convert Java source files into an Abstract Syntax Tree (AST).
+This enables precise static inspection of program structure without executing code.
+</p>
+
+<h3>TaintAnalyzer</h3>
+<p>
+The analysis engine is implemented using the <strong>Visitor pattern</strong>.
+It tracks taint across:
+</p>
+<ul>
+    <li>Local variables</li>
+    <li>Object fields (limited field sensitivity)</li>
+    <li>Method call propagation</li>
+</ul>
+
+<p>
+Taint propagation is conservative to avoid false negatives, a common trade-off in
+static security analysis.
+</p>
+
+<h3>Rule Configuration</h3>
+<p>
+Security rules are loaded from an external JSON configuration file.
+This includes:
+</p>
+<ul>
+    <li>Dangerous methods (sinks)</li>
+    <li>Sanitizer methods</li>
+    <li>Severity levels per sink</li>
+</ul>
+
+<p>
+This design cleanly separates <em>analysis logic</em> from <em>security policy</em>.
+</p>
+
+<h3>Reporting Engine</h3>
+<p>
+Detected issues are formatted into a structured, human-readable report with:
+</p>
+<ul>
+    <li>Rule ID</li>
+    <li>Severity</li>
+    <li>Line number</li>
+    <li>Clear explanation</li>
+</ul>
+
+<h2>Analysis Characteristics</h2>
+<ul>
+    <li>Static analysis</li>
+    <li>Intraprocedural</li>
+    <li>Flow-sensitive</li>
+    <li>Limited field-sensitive</li>
+    <li>Not interprocedural</li>
+</ul>
+
+<h2>Extensibility</h2>
+<p>
+SecureFlow is designed to support incremental research extensions, including:
+</p>
+<ul>
+    <li>Interprocedural taint propagation</li>
+    <li>Control-flow graph (CFG) integration</li>
+    <li>Path-sensitive analysis</li>
+    <li>Machine-readable output formats (JSON, SARIF)</li>
+</ul>
+
+<p>
+<a href="index.html">← Back to SecureFlow Home</a>
+</p>
+
+</main>
+
+<footer>
+    © 2025 SecureFlow • Design Documentation
+</footer>
+
+</body>
+</html>
