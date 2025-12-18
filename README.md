@@ -5,6 +5,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 ![Java](https://img.shields.io/badge/Language-Java-orange.svg)
 ![Status](https://img.shields.io/badge/Status-Research--Prototype-red.svg)
+[![GitHub Pages](https://img.shields.io/badge/demo-GitHub%20Pages-brightgreen)](https://manish-k-07.github.io/SecureFlow/)
+
 
 SecureFlow is a **static taint analysis tool for Java** that detects **insecure data flows** from untrusted sources to dangerous sinks.
 It is designed as a **lightweight, extensible, and research-focused prototype**, demonstrating core program analysis concepts used in security research and industrial tools.
