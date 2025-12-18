@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureFlow</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #0d6efd;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        header p {
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+        }
+        .badges {
+            margin-top: 1rem;
+        }
+        .badges img {
+            margin: 0 5px;
+        }
+        main {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 1.5rem;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        h2 {
+            color: #0d6efd;
+            margin-top: 2rem;
+        }
+        h3 {
+            color: #0d6efd;
+            margin-top: 1.5rem;
+        }
+        a {
+            color: #0d6efd;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ul {
+            line-height: 1.6;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        .button {
+            display: inline-block;
+            margin: 0.5rem 0;
+            padding: 0.5rem 1rem;
+            background-color: #0d6efd;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        .button:hover {
+            background-color: #0b5ed7;
+        }
+        pre {
+            background-color: #f1f1f1;
+            padding: 0.75rem;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>SecureFlow</h1>
+    <p>Static Taint Analysis Tool for Java</p>
+    <div class="badges">
+        <img src="https://img.shields.io/badge/Language-Java-orange" alt="Java">
+        <img src="https://img.shields.io/badge/License-MIT-green" alt="License MIT">
+        <img src="https://img.shields.io/badge/Status-Research--Prototype-red" alt="Status">
+    </div>
+</header>
+
+<main>
+    <h2>What is SecureFlow?</h2>
+    <p>SecureFlow is a **research-oriented static analysis tool** that detects insecure data flows in Java applications.  
+    It identifies how user-controlled input (sources) can reach dangerous operations (sinks), producing a detailed report with severity levels and rule identifiers.</p>
+
+    <h2>Why SecureFlow?</h2>
+    <ul>
+        <li>Demonstrates core static analysis and taint tracking concepts.</li>
+        <li>Lightweight and easy to understand for educational and research purposes.</li>
+        <li>Extensible via JSON rule configuration without modifying the core engine.</li>
+        <li>Ideal for showcasing research-level thinking for MS/PhD applications.</li>
+    </ul>
+
+    <h2>Academic & Research Relevance</h2>
+    <ul>
+        <li>Illustrates **intraprocedural taint analysis** techniques used in software security research.</li>
+        <li>Highlights **rule-based static analysis** and modular design for extendability.</li>
+        <li>Supports **field-sensitive** tracking and method call propagation within a file.</li>
+        <li>Serves as a **prototype for research discussions**, demonstrating understanding of real-world trade-offs in static analysis.</li>
+    </ul>
+
+    <h2>Architecture Overview</h2>
+    <pre>
+Java Source File
+       ↓
+JavaParser AST Generation
+       ↓
+TaintAnalyzer (AST Visitor)
+       ↓
+Issue Collection
+       ↓
+Report Generation
+    </pre>
+    <p>Key components:</p>
+    <ul>
+        <li><strong>AST Parser:</strong> JavaParser generates an abstract syntax tree.</li>
+        <li><strong>TaintAnalyzer:</strong> Tracks tainted variables, object fields, and method calls.</li>
+        <li><strong>RuleConfig:</strong> JSON-based rules for dangerous methods, sanitizers, and severity levels.</li>
+        <li><strong>Report:</strong> Generates human-readable output highlighting detected security issues.</li>
+    </ul>
+
+    <h2>Folder Structure</h2>
+    <pre>
+SecureFlow/
+├── docs/
+│   ├── index.html
+│   ├── design.md
+│   └── limitations.md
+├── examples/
+│   └── Test1.java
+├── src/
+│   └── main/java/secureflow/...
+├── rules.json
+├── README.md
+└── LICENSE
+    </pre>
+
+    <h2>Getting Started</h2>
+    <p>Clone the repository, compile, and run SecureFlow:</p>
+    <pre>
+git clone https://github.com/&lt;your-username&gt;/SecureFlow.git
+cd SecureFlow
+javac -cp "lib/*" $(Get-ChildItem -Recurse src/main/java -Filter *.java | ForEach-Object { $_.FullName })
+java -cp "lib/*;src/main/java" secureflow.Main examples/Test1.java
+    </pre>
+
+    <h2>Future Extensions</h2>
+    <ul>
+        <li>Interprocedural taint analysis to track data across methods and classes.</li>
+        <li>Control-flow and path-sensitive analysis for more precise detection.</li>
+        <li>Support for collections, arrays, and complex expressions.</li>
+        <li>Machine-readable output formats (JSON, SARIF) for integration with CI/CD.</li>
+        <li>Visualization of data flows for educational purposes.</li>
+    </ul>
+
+    <h2>Documentation</h2>
+    <p>Explore detailed docs:</p>
+    <ul>
+        <li><a class="button" href="design.md">Design & Architecture</a></li>
+        <li><a class="button" href="limitations.md">Known Limitations</a></li>
+    </ul>
+
+    <h2>License</h2>
+    <p>This project is licensed under the <a href="LICENSE">MIT License</a>.</p>
+</main>
+
+<footer>
+    &copy; 2025 SecureFlow • Research & Educational Prototype
+</footer>
+
+</body>
+</html>
