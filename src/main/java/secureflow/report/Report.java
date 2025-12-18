@@ -1,10 +1,12 @@
 package secureflow.report;
 
+import secureflow.rules.RuleConfig;
+
 import java.util.Set;
 
 public class Report {
 
-    public static void print(Set<String> issues) {
+    public static void print(Set<String> issues, RuleConfig rules) {
 
         System.out.println();
         System.out.println("==================== SecureFlow Report ====================");
@@ -17,9 +19,35 @@ public class Report {
             System.out.println("Security Issues Detected:\n");
 
             for (String issue : issues) {
-                System.out.println(
-                    "[HIGH] [TAINT-001] " + issue
-                );
+
+                /*
+                 * Internal issue format:
+                 *   sinkName::Line X | message
+                 * Example:
+                 *   exec::Line 42 | Tainted variable 'x' reaches dangerous method
+                 */
+
+                String severity = "MEDIUM"; // default severity
+                String message = issue;
+                String sink = "unknown";
+
+                if (issue.contains("::")) {
+                    String[] parts = issue.split("::", 2);
+                    sink = parts[0];
+                    message = parts[1];
+
+                    if (rules.severity != null && rules.severity.containsKey(sink)) {
+                        severity = rules.severity.get(sink);
+                    }
+                }
+
+		String paddedSeverity = String.format("%-7s", severity);
+
+		System.out.println(
+    		    "[" + paddedSeverity + "] [TAINT-001] " +
+    		    message + " '" + sink + "'"
+		);
+
             }
         }
 

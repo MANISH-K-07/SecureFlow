@@ -14,7 +14,6 @@ public class TaintAnalyzer extends VoidVisitorAdapter<Void> {
     private final Set<String> issues = new HashSet<>();
     private final RuleConfig rules;
 
-    // Constructor receives rules loaded from JSON
     public TaintAnalyzer(RuleConfig rules) {
         this.rules = rules;
     }
@@ -25,12 +24,12 @@ public class TaintAnalyzer extends VoidVisitorAdapter<Void> {
             if (var.getInitializer().isPresent()) {
                 Expression init = var.getInitializer().get();
 
-                // SOURCE: Scanner input
+                // SOURCE
                 if (init.toString().contains("nextLine")) {
                     taintedVars.add(var.getNameAsString());
                 }
 
-                // ASSIGNMENT PROPAGATION: b = a
+                // ASSIGNMENT PROPAGATION
                 if (init.isNameExpr()) {
                     String rhs = init.asNameExpr().getNameAsString();
                     if (taintedVars.contains(rhs)) {
@@ -38,7 +37,7 @@ public class TaintAnalyzer extends VoidVisitorAdapter<Void> {
                     }
                 }
 
-                // FIELD READ: b = obj.x
+                // FIELD READ
                 if (init.isFieldAccessExpr()) {
                     FieldAccessExpr field = init.asFieldAccessExpr();
                     String fieldKey =
@@ -49,17 +48,15 @@ public class TaintAnalyzer extends VoidVisitorAdapter<Void> {
                     }
                 }
 
-                // METHOD CALL PROPAGATION: b = foo(a)
+                // METHOD CALL PROPAGATION
                 if (init.isMethodCallExpr()) {
                     MethodCallExpr call = init.asMethodCallExpr();
                     String methodName = call.getNameAsString();
 
-                    // Sanitizer: do NOT propagate taint
                     if (rules.sanitizer_methods.contains(methodName)) {
                         return;
                     }
 
-                    // Conservative propagation
                     for (Expression argExpr : call.getArguments()) {
                         if (argExpr.isNameExpr()) {
                             String argName = argExpr.asNameExpr().getNameAsString();
@@ -80,18 +77,16 @@ public class TaintAnalyzer extends VoidVisitorAdapter<Void> {
         Expression target = expr.getTarget();
         Expression value = expr.getValue();
 
-        // FIELD WRITE: obj.x = ...
+        // FIELD WRITE
         if (target.isFieldAccessExpr()) {
             FieldAccessExpr field = target.asFieldAccessExpr();
             String fieldKey =
                     field.getScope().toString() + "." + field.getNameAsString();
 
-            // Source: obj.x = input()
             if (value.toString().contains("nextLine")) {
                 taintedFields.add(fieldKey);
             }
 
-            // Propagation: obj.x = y
             if (value.isNameExpr()) {
                 String rhs = value.asNameExpr().getNameAsString();
                 if (taintedVars.contains(rhs)) {
@@ -105,34 +100,41 @@ public class TaintAnalyzer extends VoidVisitorAdapter<Void> {
 
     @Override
     public void visit(MethodCallExpr call, Void arg) {
+
         String methodName = call.getNameAsString();
 
-        // Sink detection
         if (rules.dangerous_methods.contains(methodName)) {
+
+            int line = call.getRange()
+                    .map(r -> r.begin.line)
+                    .orElse(-1);
+
             for (Expression e : call.getArguments()) {
 
                 // Variable argument
                 if (e.isNameExpr()) {
                     String argName = e.asNameExpr().getNameAsString();
                     if (taintedVars.contains(argName)) {
-                        issues.add(
-                            "Tainted data '" + argName +
-                            "' reaches dangerous method '" + methodName + "'"
-                        );
+			issues.add(
+    			    methodName + "::Line " + line +
+    			    " | Tainted variable '" + argName +
+    			    "' reaches dangerous method"
+			);
                     }
                 }
 
-                // Field argument: exec(obj.x)
+                // Field argument
                 if (e.isFieldAccessExpr()) {
                     FieldAccessExpr field = e.asFieldAccessExpr();
                     String fieldKey =
                             field.getScope().toString() + "." + field.getNameAsString();
 
                     if (taintedFields.contains(fieldKey)) {
-                        issues.add(
-                            "Tainted field '" + fieldKey +
-                            "' reaches dangerous method '" + methodName + "'"
-                        );
+			issues.add(
+    			    methodName + "::Line " + line +
+    			    " | Tainted field '" + fieldKey +
+    			    "' reaches dangerous method"
+			);
                     }
                 }
             }

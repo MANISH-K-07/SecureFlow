@@ -1,11 +1,15 @@
 {
   "dangerous_methods": [
     "exec",
-    "eval"
+    "start",
+    "exit"
   ],
   "sanitizer_methods": [
-    "sanitize",
-    "clean",
-    "escape"
-  ]
+    "sanitize"
+  ],
+  "severity": {
+    "exec": "HIGH",
+    "start": "HIGH",
+    "exit": "MEDIUM"
+  }
 }

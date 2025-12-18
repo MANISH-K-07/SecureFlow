@@ -32,7 +32,7 @@ public class Main {
         analyzer.visit(cu, null);
 
         // Print results
-        Report.print(analyzer.getIssues());
+	Report.print(analyzer.getIssues(), rules);
 
         long end = System.currentTimeMillis();
         System.out.println("Analysis time: " + (end - start) + " ms");
