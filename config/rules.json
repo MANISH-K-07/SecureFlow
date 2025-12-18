@@ -5,7 +5,8 @@
     "exit"
   ],
   "sanitizer_methods": [
-    "sanitize"
+    "sanitize",
+    "cleanInput"
   ],
   "severity": {
     "exec": "HIGH",
