@@ -16,7 +16,7 @@ Below is a live demonstration of SecureFlow running in the terminal and printing
 
 Have a sneak-peek 😉
 
-![SecureFlow Terminal Demo](docs/assets/secureflow-terminal.gif)
+![SecureFlow Terminal Demo](docs/assets/secureflow_terminal.gif)
 
 ---
 
