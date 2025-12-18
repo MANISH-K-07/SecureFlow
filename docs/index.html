@@ -41,10 +41,10 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.05);
         }
         h2 {
-            color: #0d6efd;
-            margin-top: 2rem;
-        }
-        h3 {
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }        h3 {
             color: #0d6efd;
             margin-top: 1.5rem;
         }
@@ -57,6 +57,22 @@
         }
         ul {
             line-height: 1.6;
+        }
+        .tree {
+            background: #f1f5f9;
+            padding: 18px;
+            border-radius: 10px;
+            font-family: monospace;
+            white-space: pre;
+            overflow-x: auto;
+        }
+        .image-box {
+            margin-top: 25px;
+            border-radius: 14px;
+            border: 1px solid #e5e7eb;
+            padding: 14px;
+            background: white;
+            text-align: center;
         }
         footer {
             text-align: center;
@@ -102,9 +118,19 @@
 </header>
 
 <main>
-    <h2>What is SecureFlow?</h2>
-    <p>SecureFlow is a **research-oriented static analysis tool** that detects insecure data flows in Java applications.  
+    <h2>Overview</h2>
+    <p>SecureFlow is a <strong>research-oriented static taint-analysis tool</strong> that detects insecure data flows in Java applications.  
     It identifies how user-controlled input (sources) can reach dangerous operations (sinks), producing a detailed report with severity levels and rule identifiers.</p>
+
+    <h2>SecureFlow in Action 🚀</h2>
+    <p>
+        Below is a live demonstration of <strong>SecureFlow</strong> running in the terminal
+        and printing analysis results in real time.
+    </p>
+
+    <div class="image-box">
+        <img src="assets/secureflow_terminal.gif" alt="SecureFlow Terminal Demo" width="100%">
+    </div>
 
     <h2>Why SecureFlow?</h2>
     <ul>
@@ -114,16 +140,8 @@
         <li>Ideal for showcasing research-level thinking for MS/PhD applications.</li>
     </ul>
 
-    <h2>Academic & Research Relevance</h2>
-    <ul>
-        <li>Illustrates **intraprocedural taint analysis** techniques used in software security research.</li>
-        <li>Highlights **rule-based static analysis** and modular design for extendability.</li>
-        <li>Supports **field-sensitive** tracking and method call propagation within a file.</li>
-        <li>Serves as a **prototype for research discussions**, demonstrating understanding of real-world trade-offs in static analysis.</li>
-    </ul>
-
-    <h2>Architecture Overview</h2>
-    <pre>
+    <h2>Architecture</h2>
+    <div class="tree">
 Java Source File
        ↓
 JavaParser AST Generation
@@ -133,7 +151,7 @@ TaintAnalyzer (AST Visitor)
 Issue Collection
        ↓
 Report Generation
-    </pre>
+    </div>
     <p>Key components:</p>
     <ul>
         <li><strong>AST Parser:</strong> JavaParser generates an abstract syntax tree.</li>
@@ -151,21 +169,39 @@ SecureFlow/
 │   └── limitations.md
 ├── examples/
 │   └── Test1.java
+│
 ├── src/
 │   └── main/java/secureflow/...
-├── rules.json
+│
+├── config/
+│   └── rules.json
+├── evaluation/
+│   ├── false_positive/FP1.java
+│   └── true_positive/TP1.java
+│
 ├── README.md
 └── LICENSE
     </pre>
 
     <h2>Getting Started</h2>
-    <p>Clone the repository, compile, and run SecureFlow:</p>
+    <p>Clone the repository:</p>
     <pre>
-git clone https://github.com/&lt;your-username&gt;/SecureFlow.git
+git clone https://github.com/MANISH-K-07/SecureFlow.git
 cd SecureFlow
+    </pre>
+    <p>Compile:</p>
+    <pre>
 javac -cp "lib/*" $(Get-ChildItem -Recurse src/main/java -Filter *.java | ForEach-Object { $_.FullName })
+    </pre>
+    <p><strong>compile.ps1</strong> is a plain text file in project root, containing the above PowerShell monster script, allowing simpler compilation via a single command:</p>
+    <pre>
+.\compile.ps1
+    </pre>
+    <p>Run SecureFlow:</p>
+    <pre>
 java -cp "lib/*;src/main/java" secureflow.Main examples/Test1.java
     </pre>
+
 
     <h2>Future Extensions</h2>
     <ul>
@@ -181,6 +217,14 @@ java -cp "lib/*;src/main/java" secureflow.Main examples/Test1.java
     <ul>
         <li><a class="button" href="design.md">Design & Architecture</a></li>
         <li><a class="button" href="limitations.md">Known Limitations</a></li>
+    </ul>
+
+    <h2>Academic & Research Relevance</h2>
+    <ul>
+        <li>Illustrates <strong>intraprocedural taint analysis</strong> techniques used in software security research.</li>
+        <li>Highlights <strong>rule-based static analysis</strong> and modular design for extendability.</li>
+        <li>Supports <strong>field-sensitive</strong> tracking and method call propagation within a file.</li>
+        <li>Serves as a <strong>prototype for research discussions</strong>, demonstrating understanding of real-world trade-offs in static analysis.</li>
     </ul>
 
     <h2>License</h2>

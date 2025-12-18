@@ -105,8 +105,8 @@ SecureFlow uses a JSON file to configure rules (`rules.json`):
 
 ## Documentation
 
-* **Design & Architecture**: See [`design.md`](https://github.com/MANISH-K-07/SecureFlow/blob/main/design.md) for high-level architecture, data flow, and design decisions.
-* **Known Limitations**: See [`limitations.md`](https://github.com/MANISH-K-07/SecureFlow/blob/main/limitations.md) for analysis scope, limitations, and future work.
+* **Design & Architecture**: See [`design.md`](https://github.com/MANISH-K-07/SecureFlow/blob/main/docs/design.md) for high-level architecture, data flow, and design decisions.
+* **Known Limitations**: See [`limitations.md`](https://github.com/MANISH-K-07/SecureFlow/blob/main/docs/limitations.md) for analysis scope, limitations, and future work.
 
 ---
 
