@@ -229,13 +229,14 @@ java -cp "lib/*;src/main/java" secureflow.Main examples/Test1.java
     </ul>
 
     <h2>Evaluation</h2>
+        <p>Evaluated SecureFlow on a small benchmark suite consisting of manually crafted Java programs representing common security patterns.</p>
         <p><strong>True Positives:</strong></p>
     <ul>
-        <li>TP1.java: Command execution with untrusted input (Detected)</li>
+        <li><pre>TP1.java</pre>: Command execution with untrusted input (Detected)</li>
     </ul>
         <p><strong>False Positives:</strong></p>
     <ul>
-        <li>FP1.java: Sanitized input passed to command execution (Not detected)</li>
+        <li><pre>FP1.java</pre>: Sanitized input passed to command execution (Not detected)</li>
     </ul>
         <p>These results demonstrate that SecureFlow can detect real vulnerabilities while avoiding false positives in common sanitization patterns.</p>
 
