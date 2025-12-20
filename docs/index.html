@@ -228,6 +228,17 @@ java -cp "lib/*;src/main/java" secureflow.Main examples/Test1.java
         <li>Serves as a <strong>prototype for research discussions</strong>, demonstrating understanding of real-world trade-offs in static analysis.</li>
     </ul>
 
+    <h2>Evaluation</h2>
+        <p><strong>True Positives:</strong></p>
+    <ul>
+        <li>TP1.java: Command execution with untrusted input (Detected)</li>
+    </ul>
+        <p><strong>False Positives:</strong></p>
+    <ul>
+        <li>FP1.java: Sanitized input passed to command execution (Not detected)</li>
+    </ul>
+        <p>These results demonstrate that SecureFlow can detect real vulnerabilities while avoiding false positives in common sanitization patterns.</p>
+
     <h2>License</h2>
     <p>This project is licensed under the <a href="LICENSE">MIT License</a>.</p>
 </main>
