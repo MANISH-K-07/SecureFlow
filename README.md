@@ -122,6 +122,20 @@ SecureFlow demonstrates:
 
 It is intentionally **not a production security scanner**, but a research and educational tool for exploring program analysis and software security concepts.
 
+## Evaluation
+
+Evaluated SecureFlow on a small benchmark suite consisting of
+manually crafted Java programs representing common security patterns.
+
+### True Positives
+- `TP1.java`: Command execution with untrusted input (Detected)
+
+### False Positives
+- `FP1.java`: Sanitized input passed to command execution (Not detected)
+
+These results demonstrate that SecureFlow can detect real vulnerabilities
+while avoiding false positives in common sanitization patterns.
+
 ---
 
 ## License
